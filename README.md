@@ -10,7 +10,7 @@ For at flere skal kunne være med å utvikle dette, er det laget noen retningsli
 Vi holder oss til kodestandardene som tilhører språket vi skriver i. 
 
 #### Kommentarer
-Kommentarer skal unngåes så langt det lar seg gjøre. Koden som blir skrevet skal være så forståelig, med god semantikk og kohesjon med resten av prosjeket. Hvis det er noe forretningslogikk som *ikke* er selvforklarende er kommentarer greit.
+Kommentarer skal unngås så langt det lar seg gjøre. Koden som blir skrevet skal være enkel, og ha god semantikk og kohesjon med resten av prosjeket. Hvis det er noe forretningslogikk som *ikke* er selvforklarende, er kommentarer greit.
 
 Dersom funksjonalitet ikke er implementert enda, skal kommentar **TODO** legges til. Eksempel følger under: 
 ```java
