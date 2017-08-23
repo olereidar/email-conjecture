@@ -4,7 +4,21 @@ Målet med applikasjonen er å kunne automatisere gjetningsarbeid når man er us
 
 
 ## Retningslinjer under utvikling
-For at flere skal kunne være med å utvikle dette, er det viktig med noen retningslinjer. Disse retningslinjene er ment for at alle utviklere jobber på samme måte og kan fortsette der en annen slapp.
+For at flere skal kunne være med å utvikle dette, er det laget noen retningslinjer. Disse retningslinjene er ment for at alle utviklere skal kunne jobbe på best mulig måte, være i stand til å fortsette der en annen slapp og ikke rote seg bort i kode.
+
+### Kode
+Vi holder oss til kodestandardene som tilhører språket vi skriver i. 
+
+#### Kommentarer
+Kommentarer skal unngåes så langt det lar seg gjøre. Koden som blir skrevet skal være så forståelig, med god semantikk og kohesjon med resten av prosjeket. Hvis det er noe forretningslogikk som *ikke* er selvforklarende er kommentarer greit.
+
+Dersom funksjonalitet ikke er implementert enda, skal kommentar **TODO** legges til. Eksempel følger under: 
+```java
+    private String generateRandomNames() {
+        // TODO: Implementere tilfeldig navn
+        return "Mark";
+    }
+```
 
 ### GitHub
 Alt som utvikles skal legges ut her på GitHub. Videre følger tips og veiledning til hvordan Git- skal håndteres i dette prosjektet.
