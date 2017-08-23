@@ -11,10 +11,21 @@ Alt som utvikles skal legges ut her på GitHub. Videre følger tips og veilednin
 
 #### Branches
 
+Hver gang du skal utvikle noe nytt lager du en **feature** ut ifra den *nyeste* brachen. Den nyeste branchen er som oftest **release**.
+Branchene skal navngies på en slik måte at andre forstår hva du jobber med. For eksempel hvis du jobber med en ny feature som skal "optimalisere noe", er et godt brachnavn **feature/optimalisere-noe**
+
+1. **master** - Her ligger ferdig testet nyeste versjon av programmet. **Ingenting** skal dyttes rett til master uten godkjenning.
+2. **release** - Her ligger det vi har utviklet sammen, men er ikke nødvendigvis testet ferdig. Kan ses på som beta og er satt sammen av ulike **feature**-braches
+3. **feature** - Her ligger det vi jobber med akkurat nå. En release består av ulike features. Når en feature er ferdig legges denne inn i release.
+
 #### Commits
+1. Alle commits må inneholde en melding som forteller hva som er gjort. 
+2. Ha heller flere mindre commits der du gjør, enn å endre veldig mange filer på en gang.
+3. Ved refaktorering av kode må commit-meldingen starte med enten **[KAIZEN]** eller **[REFAKTORERING]**
 
 #### Pull-requests
-
+Når en **feature** er ferdig skal det lages en Pull Request. Dette gir muligheten for code review. Dette betyr at andre utviklere kan se igjennom hva som er gjort, kommentere det de lurer på, liker eller ikke. 
+En Pull Request skal *alltid* godkjennes av en annen før den merges inn i **release**.
 
 ## Last ned
 ```java
