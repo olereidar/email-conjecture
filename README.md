@@ -41,6 +41,22 @@ Branchene skal navngies på en slik måte at andre forstår hva du jobber med. F
 Når en **feature** er ferdig skal det lages en Pull Request. Dette gir muligheten for code review. Dette betyr at andre utviklere kan se igjennom hva som er gjort, kommentere det de lurer på, liker eller ikke. 
 En Pull Request skal *alltid* godkjennes av en annen før den merges inn i **release**.
 
+## Kom i gang med utvikling
+For å komme i gang med utvikling trenger du følgende:
+1. Et utviklingsverktøy som støtter Maven (for eksempel [IntelliJ](https://www.jetbrains.com/idea/) eller [Eclipse](https://eclipse.org/))
+2. [Git](https://git-scm.com/)-bash, eller [GitHub Desktop](https://desktop.github.com/) hvis du foretrekket GUI fremfor terminal
+3. Java 8 JDK
+
+Når du har utviklingsverktøyene på plass og riktig satt opp, kan du begynne å sette opp.
+- Klon repoet med Git i en passende mappe. 
+```git
+ cd .\passendeMappe
+ git clone https://github.com/olereidar/email-conjecture.git
+``` 
+- Åpne utviklingsverktøyet og lag et nytt prosjekt. Et hot tips for å sette opp alt riktig i **IntelliJ**, er å lage prosjektet ved å åpne filen *pom.xml*. Dette laster ned alle avhengigheter som treng for å kjøre programmet. 
+- For å kjøre programmet lokalt, se i mappen *test/java*. Der skal det ligge et Entrypoint som heter *App.java*
+
+
 ## Last ned
 ```java
     // TODO: komme med første versjon.
