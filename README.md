@@ -34,7 +34,7 @@ Branchene skal navngies på en slik måte at andre forstår hva du jobber med. F
 
 #### Commits
 1. Alle commits må inneholde en melding som forteller hva som er gjort. 
-2. Ha heller flere mindre commits der du gjør, enn å endre veldig mange filer på en gang.
+2. Ha heller mindre commits, enn å endre veldig mange filer på en gang.
 3. Ved refaktorering av kode må commit-meldingen starte med enten **[KAIZEN]** eller **[REFAKTORERING]**
 
 #### Pull-requests
