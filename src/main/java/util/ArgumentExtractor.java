@@ -1,14 +1,14 @@
 package util;
 
+import exceptions.ArgumentNotImplementedExeption;
 import lib.EArguments;
 import model.CommandList;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ArgumentExtractor {
 
-    public static CommandList extractToCommandList(String[] args) {
+    public static CommandList extractToCommandList(String[] args) throws ArgumentNotImplementedExeption {
         CommandList cmdList = new CommandList();
         for (int x = 0; x < args.length; x++) {
             if (isFlag(args[x])) {
@@ -34,15 +34,13 @@ public class ArgumentExtractor {
         return flagChildren.toArray(new String[flagChildren.size()]);
     }
 
-    private static EArguments getFlagArgument(String argument) {
+    private static EArguments getFlagArgument(String argument) throws ArgumentNotImplementedExeption {
         for (EArguments eArgument : EArguments.values()) {
-            System.out.println(eArgument.getArgument());
             if(eArgument.getArgument().equals(argument))
                 return eArgument;
 
         }
-        // TODO: Gjør noe lurt dersom argumentet ikke finnes.
-        return null;
+        throw new ArgumentNotImplementedExeption(argument);
     }
 
     private static boolean isFlag(String argument) {
