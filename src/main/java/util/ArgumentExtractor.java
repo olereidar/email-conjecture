@@ -8,11 +8,15 @@ import java.util.ArrayList;
 
 public class ArgumentExtractor {
 
-    public static CommandList extractToCommandList(String[] args) throws ArgumentNotImplementedExeption {
+    public static CommandList extractToCommandList(String[] args) {
         CommandList cmdList = new CommandList();
         for (int x = 0; x < args.length; x++) {
             if (isFlag(args[x])) {
-                cmdList.addCommand(getFlagArgument(args[x]), getFlagChildren(args, x));
+                try {
+                    cmdList.addCommand(getFlagArgument(args[x]), getFlagChildren(args, x));
+                } catch (ArgumentNotImplementedExeption exeption) {
+                    System.err.print(exeption);
+                }
             }
         }
         return cmdList;
