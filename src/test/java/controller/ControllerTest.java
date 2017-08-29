@@ -40,7 +40,7 @@ public class ControllerTest {
     public void testMedArgumenterGirVanligOppfoersel() {
         String[] args = {"-h"};
         Controller c = new Controller(args);
-        assertThat(outContent.toString(), is("You need some help. Okey!\r\n"));
+        assertTrue(outContent.toString().contains("Email Conjecture er et prosjekt startet av frivillige studenter. Applikasjonen automatiserer gjetningsarbeid når man er usikker på en e-post adresse."));
     }
 
     @Test
