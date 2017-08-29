@@ -33,7 +33,7 @@ public class ControllerTest {
     public void testMedIngenArgumenterGirVanligOppfoersel() {
         String[] args = {};
         Controller c = new Controller(args);
-        assertThat(outContent.toString(), is("Ingen argumenter ble sendt med.\r\n"));
+        assertTrue(outContent.toString().contains("Ingen argumenter ble sendt med."));
     }
 
     @Test
