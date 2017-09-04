@@ -3,7 +3,6 @@ package model;
 import lib.EArguments;
 
 import java.util.HashMap;
-import java.util.Properties;
 
 public class CommandList extends HashMap<EArguments, String[]> {
 

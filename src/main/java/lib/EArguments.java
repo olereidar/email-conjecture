@@ -1,20 +1,44 @@
 package lib;
 
+import model.HelpCommand;
+
 public enum EArguments {
 
     HELP("-h") {
         public void runCommand(String[] values) {
-            System.out.println("Email Conjecture er et prosjekt startet av frivillige studenter. Applikasjonen automatiserer gjetningsarbeid når man er usikker på en e-post adresse.");
+            HelpCommand helpCommand = new HelpCommand();
+            System.out.println(helpCommand.getCommandText());
+        }
+    },
 
-            System.out.println();
-            System.out.println("Bruk:");
-            System.out.println("Kjør programmet fra kommandolinja etterfulgt av et flagg.");
+    NAME("-navn") {
 
-            System.out.println();
-            System.out.println("Flagg:");
-            System.out.println("[-h] - viser hjelp");
+        private boolean isCalled = false;
+
+        public void runCommand(String[] values) {
+            isCalled = true;
+
+        }
+
+        boolean isCalled() {
+            return isCalled;
+        }
+    },
+
+    FIRM("-firma") {
+
+        private boolean isCalled = false;
+
+        public void runCommand(String[] values) {
+            isCalled = true;
+
+        }
+
+        boolean isCalled() {
+            return isCalled;
         }
     };
+
 
     private final String argument;
 
