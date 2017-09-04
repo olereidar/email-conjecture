@@ -1,7 +1,5 @@
 package controller;
 
-import exceptions.ArgumentNotImplementedExeption;
-import lib.EArguments;
 import model.CommandList;
 import util.ArgumentExtractor;
 
@@ -19,25 +17,10 @@ public class Controller {
     }
 
     private void doConjecture(String[] args) {
-        try {
-            CommandList cmdList = ArgumentExtractor.extractToCommandList(args);
-            cmdList.forEach((command, arguments) -> {
-                runCommand(command, arguments);
-            });
-        } catch (ArgumentNotImplementedExeption exeption) {
-            System.err.print(exeption);
-        }
-    }
-
-    private void runCommand(EArguments command, String[] args) {
-        switch (command) {
-            case HELP:
-                System.out.println("You need some help. Okey!");
-                break;
-            default:
-                System.out.println("Kjør default.");
-                break;
-        }
+        CommandList cmdList = ArgumentExtractor.extractToCommandList(args);
+        cmdList.forEach((command, values) -> {
+            command.runCommand(values);
+        });
     }
 
     private boolean isArgument(String[] args) {

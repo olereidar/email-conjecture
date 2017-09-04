@@ -33,21 +33,14 @@ public class ControllerTest {
     public void testMedIngenArgumenterGirVanligOppfoersel() {
         String[] args = {};
         Controller c = new Controller(args);
-        assertThat(outContent.toString(), is("Ingen argumenter ble sendt med.\r\n"));
+        assertTrue(outContent.toString().contains("Ingen argumenter ble sendt med."));
     }
 
     @Test
     public void testMedArgumenterGirVanligOppfoersel() {
         String[] args = {"-h"};
         Controller c = new Controller(args);
-        assertThat(outContent.toString(), is("You need some help. Okey!\r\n"));
-    }
-
-    @Test
-    public void testMedFeilArgumenterKasterException() {
-        String[] args = {"-etArgumentSomIkkeEksisterer"};
-        Controller c = new Controller(args);
-        assertTrue(errContent.toString().startsWith("exceptions.ArgumentNotImplementedExeption"));
+        assertTrue(outContent.toString().contains("Email Conjecture er et prosjekt startet av frivillige studenter. Applikasjonen automatiserer gjetningsarbeid når man er usikker på en e-post adresse."));
     }
 
 }
