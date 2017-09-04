@@ -43,11 +43,4 @@ public class ControllerTest {
         assertTrue(outContent.toString().contains("Email Conjecture er et prosjekt startet av frivillige studenter. Applikasjonen automatiserer gjetningsarbeid når man er usikker på en e-post adresse."));
     }
 
-    @Test
-    public void testMedFeilArgumenterKasterException() {
-        String[] args = {"-etArgumentSomIkkeEksisterer"};
-        Controller c = new Controller(args);
-        assertTrue(errContent.toString().startsWith("exceptions.ArgumentNotImplementedExeption"));
-    }
-
 }
