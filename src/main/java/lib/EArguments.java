@@ -1,41 +1,27 @@
 package lib;
 
-import model.HelpCommand;
+import commands.HelpCommand;
+import commands.ICommand;
 
 public enum EArguments {
 
     HELP("-h") {
-        public void runCommand(String[] values) {
+        public ICommand getCorrespondingCommand(String[] values) {
             HelpCommand helpCommand = new HelpCommand();
-            System.out.println(helpCommand.getCommandText());
+            helpCommand.setFlagChildred(values);
+            return helpCommand;
         }
     },
 
     NAME("-navn") {
-
-        private boolean isCalled = false;
-
-        public void runCommand(String[] values) {
-            isCalled = true;
-
-        }
-
-        boolean isCalled() {
-            return isCalled;
+        public ICommand getCorrespondingCommand(String[] values) {
+            return null;
         }
     },
 
     FIRM("-firma") {
-
-        private boolean isCalled = false;
-
-        public void runCommand(String[] values) {
-            isCalled = true;
-
-        }
-
-        boolean isCalled() {
-            return isCalled;
+        public ICommand getCorrespondingCommand(String[] values) {
+            return null;
         }
     };
 
@@ -50,6 +36,6 @@ public enum EArguments {
         return argument;
     }
 
-    public abstract void runCommand(String[] values);
+    public abstract ICommand getCorrespondingCommand(String[] values);
 
 }
