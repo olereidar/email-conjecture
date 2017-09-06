@@ -1,5 +1,6 @@
 package lib;
 
+import commands.ConjectureCommand;
 import commands.HelpCommand;
 import commands.ICommand;
 
@@ -13,15 +14,11 @@ public enum EArguments {
         }
     },
 
-    NAME("-navn") {
-        public ICommand getCorrespondingCommand(String[] values) {
-            return null;
-        }
-    },
-
-    FIRM("-firma") {
-        public ICommand getCorrespondingCommand(String[] values) {
-            return null;
+    CONJECTURE("-s") {
+        public ICommand getCorrespondingCommand(String[] nameAndFirm) {
+            ConjectureCommand conjectureCommand = new ConjectureCommand();
+            conjectureCommand.setFlagChildred(nameAndFirm);
+            return conjectureCommand;
         }
     };
 
