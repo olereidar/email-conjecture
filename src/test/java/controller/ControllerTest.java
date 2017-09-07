@@ -12,18 +12,15 @@ import static org.junit.Assert.assertTrue;
 public class ControllerTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 
     @Before
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
-        System.setErr(new PrintStream(errContent));
     }
 
     @After
     public void killStreams() {
         System.setOut(null);
-        System.setErr(null);
     }
 
     @Test

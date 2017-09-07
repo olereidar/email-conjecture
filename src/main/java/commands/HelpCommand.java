@@ -19,7 +19,7 @@ public class HelpCommand implements ICommand {
     public void executeCommand() {
         System.out.println(getCommandDescriptionText());
         if (hasChildren()) {
-            System.out.println("Dette flagget [-h] tillater ingen argumenter og blir dermed ikke tatt hensyn til.");
+            System.err.println("Dette flagget [-h] tillater ingen argumenter og blir dermed ikke tatt hensyn til.");
         }
         Arrays.asList(HELP_COMMAND_TEXT).forEach((line) -> System.out.println(line));
     }

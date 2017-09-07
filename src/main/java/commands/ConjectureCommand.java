@@ -36,7 +36,7 @@ public class ConjectureCommand implements ICommand {
             List<String> listOfConjecturedEmails = doEasyConjecture(names, firm);
             listOfConjecturedEmails.forEach((email) -> System.out.println(email));
         } catch (CommandErrorExeption commandErrorExeption) {
-            commandErrorExeption.printStackTrace();
+            System.err.println(commandErrorExeption);
         }
     }
 
@@ -49,13 +49,16 @@ public class ConjectureCommand implements ICommand {
     private int getFirmIndex(List<String> nameAndFirmArray) throws CommandErrorExeption {
         final int indexOfAt = nameAndFirmArray.indexOf(AT_FIRM);
         final int DOES_NOT_EXIST = -1;
-        if (indexOfAt == DOES_NOT_EXIST) {
+        if (indexOfAt == DOES_NOT_EXIST || nameAndFirmArray == null) {
             final int ONLY_TWO_FLAG_CHILDREN = 2;
             if (nameAndFirmArray.size() == ONLY_TWO_FLAG_CHILDREN) {
                 // Antar at firma kommer som andre argument dersom ikke "@" er med som argument.
                 return nameAndFirmArray.size() - 1;
             } else {
-                throw new CommandErrorExeption("[-s] - " + nameAndFirmArray.toString() + " er ikke gyldig.");
+                throw new CommandErrorExeption("[-s] - " +
+                        nameAndFirmArray == null || nameAndFirmArray.size() == 0 ?
+                        "Ingen argumenter." :
+                        nameAndFirmArray.toString() + " er ikke gyldig.");
             }
         }
         return indexOfAt + 1;
