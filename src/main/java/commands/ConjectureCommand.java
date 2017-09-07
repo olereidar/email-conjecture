@@ -1,17 +1,22 @@
 package commands;
 
+import exceptions.CommandErrorExeption;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ConjectureCommand implements ICommand {
 
-    private String[] nameAndFirmArray;
+    private final String AT_FIRM = "@";
+    private List<String> nameAndFirmArray;
 
     public void setFlagChildred(String[] flagChildred) {
-        this.nameAndFirmArray = flagChildred;
+        this.nameAndFirmArray = Arrays.asList(flagChildred);
     }
 
     public String[] getFlagChildren() {
-        return nameAndFirmArray;
+        return nameAndFirmArray.toArray(new String[nameAndFirmArray.size()]);
     }
 
     public String getCommandDescriptionText() {
@@ -20,26 +25,45 @@ public class ConjectureCommand implements ICommand {
 
     public void executeCommand() {
         System.out.println(getCommandDescriptionText());
-        // TODO: Lage et smart util for å trekke ut navn og firma.
-        // Nå tar programmet bare i mot to argumenter (med mellomrom som skiller de)
-        String name = nameAndFirmArray[0];
-        String firm = nameAndFirmArray[1];
+        try {
+            final int firmIndex = getFirmIndex(nameAndFirmArray);
+            final boolean hasSpecifiedDomain = hasSpecifiedDomain(nameAndFirmArray); // TODO: ikke implementert.
+            List<String> names = nameAndFirmArray.subList(0, firmIndex - 1);
+            List<String> firm = nameAndFirmArray.subList(firmIndex, nameAndFirmArray.size());
 
-        // TODO: Utvide util for å lage en e-post på mange flere måter.
-        // Dvs. flytt denne funksjonaliteten ut i en util.
-        ArrayList<String> listOfConjecturedEmails = doEasyConjecture(name, firm);
-        listOfConjecturedEmails.forEach((email) -> System.out.println(email));
+            // TODO: Utvide util for å lage en e-post på mange flere måter.
+            // Dvs. flytt denne funksjonaliteten ut i en util.
+            List<String> listOfConjecturedEmails = doEasyConjecture(names, firm);
+            listOfConjecturedEmails.forEach((email) -> System.out.println(email));
+        } catch (CommandErrorExeption commandErrorExeption) {
+            commandErrorExeption.printStackTrace();
+        }
     }
 
-    private ArrayList<String> doEasyConjecture(String name, String firm) {
-        ArrayList<String> list = new ArrayList<String>();
-        String firstConjecture = String.format("%s@%s.no", name, firm);
-        String secondConjecture = String.format("%s@%s.com", name, firm);
-        String thirdConjecture = String.format("%s@%s.net", name, firm);
-        list.add(firstConjecture);
-        list.add(secondConjecture);
-        list.add(thirdConjecture);
-        return list;
+    private List<String> doEasyConjecture(List<String> names, List<String> firm) {
+        List<String> conjecturedEmails = new ArrayList<String>();
+        // TODO: Begynn å gjett på e-poster
+        return conjecturedEmails;
+    }
+
+    private int getFirmIndex(List<String> nameAndFirmArray) throws CommandErrorExeption {
+        final int indexOfAt = nameAndFirmArray.indexOf(AT_FIRM);
+        final int DOES_NOT_EXIST = -1;
+        if (indexOfAt == DOES_NOT_EXIST) {
+            final int ONLY_TWO_FLAG_CHILDREN = 2;
+            if (nameAndFirmArray.size() == ONLY_TWO_FLAG_CHILDREN) {
+                // Antar at firma kommer som andre argument dersom ikke "@" er med som argument.
+                return nameAndFirmArray.size() - 1;
+            } else {
+                throw new CommandErrorExeption("[-s] - " + nameAndFirmArray.toString() + " er ikke gyldig.");
+            }
+        }
+        return indexOfAt + 1;
+    }
+
+    private boolean hasSpecifiedDomain(List<String> firmArray) {
+        // TODO: Implementere en sjekk på om ".no" er nevnt feks.
+        return false;
     }
 
 }
