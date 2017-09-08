@@ -1,19 +1,27 @@
 package util;
 
+import commands.ICommand;
 import exceptions.ArgumentNotImplementedExeption;
 import lib.EArguments;
-import model.CommandList;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class ArgumentExtractor {
 
-    public static CommandList extractToCommandList(String[] args) {
-        CommandList cmdList = new CommandList();
+    public static List<ICommand> extractToCommandList(String[] args) {
+        List<ICommand> commandList = new ArrayList<ICommand>();
+        sortArgumentsBasedOnFlag(args).forEach((argument, flagChildren) -> commandList.add(argument.getCorrespondingCommand(flagChildren)));
+        return commandList;
+    }
+
+    private static HashMap<EArguments, String[]> sortArgumentsBasedOnFlag(String[] args) {
+        HashMap<EArguments, String[]> cmdList = new HashMap<EArguments, String[]>();
         for (int x = 0; x < args.length; x++) {
             if (isFlag(args[x])) {
                 try {
-                    cmdList.addCommand(getFlagArgument(args[x]), getFlagChildren(args, x));
+                    cmdList.put(getFlagArgument(args[x]), getFlagChildren(args, x));
                 } catch (ArgumentNotImplementedExeption exeption) {
                     System.err.print(exeption);
                 }

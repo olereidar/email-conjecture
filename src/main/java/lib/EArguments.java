@@ -1,20 +1,27 @@
 package lib;
 
+import commands.ConjectureCommand;
+import commands.HelpCommand;
+import commands.ICommand;
+
 public enum EArguments {
 
     HELP("-h") {
-        public void runCommand(String[] values) {
-            System.out.println("Email Conjecture er et prosjekt startet av frivillige studenter. Applikasjonen automatiserer gjetningsarbeid når man er usikker på en e-post adresse.");
+        public ICommand getCorrespondingCommand(String[] values) {
+            HelpCommand helpCommand = new HelpCommand();
+            helpCommand.setFlagChildred(values);
+            return helpCommand;
+        }
+    },
 
-            System.out.println();
-            System.out.println("Bruk:");
-            System.out.println("Kjør programmet fra kommandolinja etterfulgt av et flagg.");
-
-            System.out.println();
-            System.out.println("Flagg:");
-            System.out.println("[-h] - viser hjelp");
+    CONJECTURE("-s") {
+        public ICommand getCorrespondingCommand(String[] nameAndFirm) {
+            ConjectureCommand conjectureCommand = new ConjectureCommand();
+            conjectureCommand.setFlagChildred(nameAndFirm);
+            return conjectureCommand;
         }
     };
+
 
     private final String argument;
 
@@ -26,6 +33,6 @@ public enum EArguments {
         return argument;
     }
 
-    public abstract void runCommand(String[] values);
+    public abstract ICommand getCorrespondingCommand(String[] values);
 
 }

@@ -1,7 +1,9 @@
 package controller;
 
-import model.CommandList;
+import commands.ICommand;
 import util.ArgumentExtractor;
+
+import java.util.List;
 
 public class Controller {
 
@@ -17,10 +19,9 @@ public class Controller {
     }
 
     private void doConjecture(String[] args) {
-        CommandList cmdList = ArgumentExtractor.extractToCommandList(args);
-        cmdList.forEach((command, values) -> {
-            command.runCommand(values);
-        });
+        List<ICommand> commandList = ArgumentExtractor.extractToCommandList(args);
+        commandList.forEach(command -> command.executeCommand());
+        // TODO: https://stackoverflow.com/questions/46057609/do-something-if-the-list-contains-two-objects-of-class
     }
 
     private boolean isArgument(String[] args) {

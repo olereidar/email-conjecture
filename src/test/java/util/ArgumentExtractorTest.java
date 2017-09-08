@@ -1,13 +1,14 @@
 package util;
 
-import exceptions.ArgumentNotImplementedExeption;
-import model.CommandList;
+import commands.ICommand;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -30,21 +31,21 @@ public class ArgumentExtractorTest {
     @Test
     public void testMedEtArgumentSkalGiTalletEn() {
         String[] args = {"-h", "test", "test"};
-        CommandList cmdList = ArgumentExtractor.extractToCommandList(args);
+        List<ICommand> cmdList = ArgumentExtractor.extractToCommandList(args);
         assertThat(cmdList.size(), is(1));
     }
 
     @Test
     public void testMedArgumentUtenFlaggSkalGiTalletNull() {
         String[] args = {"ingenFlagg", "bare", "tilfeldige", "argumenter", "uten", "mål", "eller", "mening"};
-        CommandList cmdList = ArgumentExtractor.extractToCommandList(args);
+        List<ICommand> cmdList = ArgumentExtractor.extractToCommandList(args);
         assertThat(cmdList.size(), is(0));
     }
 
     @Test
     public void testMedEtFlaggOgTilfeldigeArgumenterSkalGiTalletEn()  {
         String[] args = {"ingenFlagg", "bare", "tilfeldige", "argumenter", "uten", "mål", "eller", "mening", "-h", "aWildFlagAppeared"};
-        CommandList cmdList = ArgumentExtractor.extractToCommandList(args);
+        List<ICommand> cmdList = ArgumentExtractor.extractToCommandList(args);
         assertThat(cmdList.size(), is(1));
     }
 
