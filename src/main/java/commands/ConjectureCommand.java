@@ -19,13 +19,6 @@ public class ConjectureCommand implements ICommand {
         return nameAndFirmArray.toArray(new String[nameAndFirmArray.size()]);
     }
 
-    public static void main(String[] args) {
-        ConjectureCommand cc = new ConjectureCommand();
-        String[] testArgs = {"fornavn", "mellomnavn", "@", "firma", "no"};
-        cc.setFlagChildred(testArgs);
-        cc.executeCommand();
-    }
-
     public String getCommandDescriptionText() {
         return description;
     }
