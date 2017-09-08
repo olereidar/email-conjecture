@@ -45,12 +45,12 @@ public class ConjectureCommandTest {
     }
 
     @Test
-    public void testMedRiktigToArgumenterGirVanligOppfoersel() throws Exception {
+    public void testMedToArgumenterGirFeilmelding() throws Exception {
         ConjectureCommand cc = new ConjectureCommand();
         String[] flagChildren = {"olereidar", "firma"};
         cc.setFlagChildred(flagChildren);
         cc.executeCommand();
-        assertTrue(errContent.toString().length() == 0);
+        assertTrue(errContent.toString().length() != 0);
     }
 
     @Test

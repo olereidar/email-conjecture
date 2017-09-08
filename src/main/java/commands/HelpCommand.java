@@ -11,7 +11,11 @@ public class HelpCommand implements ICommand {
                     "Kjør programmet fra kommandolinja etterfulgt av et flagg.",
                     "",
                     "Flagg:",
-                    "[-h] - viser hjelp"
+                    "[-h] - Viser denne hjelpeteksten,",
+                    "[-s] - Starter generering av e-poster basert på navn og firma.",
+                    "    " + "-s navn @ firma",
+                    "    " + "-s fornavn mellomnavn etternavn @ firma",
+                    "    " + "-s navn @ firma .domene"
             };
 
     private String[] flagChildren;
