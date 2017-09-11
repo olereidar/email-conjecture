@@ -21,7 +21,6 @@ public class Controller {
     private void doConjecture(String[] args) {
         List<ICommand> commandList = ArgumentExtractor.extractToCommandList(args);
         commandList.forEach(command -> command.executeCommand());
-        // TODO: https://stackoverflow.com/questions/46057609/do-something-if-the-list-contains-two-objects-of-class
     }
 
     private boolean isArgument(String[] args) {
