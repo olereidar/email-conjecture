@@ -18,19 +18,15 @@ public class ConjetureMachine {
         final boolean hasSpecifiedDomain = hasSpecifiedDomain(nameAndFirmArray);
         List<String> names = nameAndFirmArray.subList(0, firmIndex - 1);
         List<String> firm = nameAndFirmArray.subList(firmIndex, nameAndFirmArray.size());
-
-        // TODO: Begynn å gjett på e-poster
-        //names = conjectureNamesToList(names);
+        names = conjectureNamesToList(names);
         firm = conjectureFirmToList(firm, hasSpecifiedDomain);
-
         return joinConjecturedNamesFirmsToList(names, firm);
     }
 
     private static List<String> joinConjecturedNamesFirmsToList(List<String> names, List<String> firms) {
-        //TODO
         List<String> conjecturedList = new ArrayList<String>();
-        names.forEach(name -> {
-            firms.forEach(firm -> {
+        firms.forEach(firm -> {
+            names.forEach(name -> {
                 String email = String.format("%s@%s", name, firm);
                 conjecturedList.add(email);
             });
@@ -39,20 +35,53 @@ public class ConjetureMachine {
     }
 
     private static List<String> conjectureFirmToList(List<String> firm, boolean hasSpecifiedDomain) {
-        // TODO
-        return firm;
+        List<String> list = new ArrayList<String>();
+        list.addAll(conjectureFirmFull(firm, hasSpecifiedDomain)); // fullt firma uten modifikasjoner
+        return list;
+    }
+
+
+    private static List<String> conjectureFirmFull(List<String> firm, boolean hasSpecifiedDomain) {
+        List<String> list = new ArrayList<String>();
+        list.addAll(firm);
+        if (hasSpecifiedDomain) {
+            String domain = getLast(list);
+            list.remove(firm.size() - 1);
+            list = conjectureFull(list);
+            list = list.stream().map(s -> String.format("%s%s", s, domain)).collect(Collectors.toList());
+        } else {
+            list = conjectureDomains(conjectureFull(list));
+        }
+        return list;
+    }
+
+    private static List<String> conjectureDomains(List<String> conjecturedListWithoutDomain) {
+        String[] domains = {
+                ".no",
+                ".com",
+                ".net",
+                ".org"
+        };
+        List<String> list = new ArrayList<String>();
+        conjecturedListWithoutDomain.forEach(firm -> {
+            for (String domain : domains) {
+                String firmAndDomain = String.format("%s%s", firm, domain);
+                list.add(firmAndDomain);
+            }
+        });
+        return list;
     }
 
     private static List<String> conjectureNamesToList(List<String> names) {
         List<String> list = new ArrayList<String>();
-        list.addAll(conjectureFull(names));
-        list.addAll(conjectureFirstLast(names));
-        list.addAll(conjectureLastFirstSecond(names));
-        list.addAll(conjectureShort(names));
-        list.addAll(conjectureShortFirstSecondLongLast(names));
-        list.addAll(conjectureShortFirstLast(names));
-        list.addAll(conjectureShortFirstLongLast(names));
-        list.addAll(names);
+        list.addAll(conjectureFull(names));                     // fullt navn uten modifikasjoner
+        list.addAll(conjectureFirstLast(names));                // fornavn etternavn
+        list.addAll(conjectureLastFirstSecond(names));          // etternavn fornavn
+        list.addAll(conjectureShort(names));                    // f m e
+        list.addAll(conjectureShortFirstSecondLongLast(names)); // f m etternavn
+        list.addAll(conjectureShortFirstLast(names));           // f e
+        list.addAll(conjectureShortFirstLongLast(names));       // f etternavn
+        list.addAll(names);                                     // argumentmessig - eks fornavn@firma, mellomnavn@firma, etternavn@firma
         return list;
     }
 
@@ -111,17 +140,21 @@ public class ConjetureMachine {
     }
 
     private static List<String> conjectureFull(List<String> list) {
-        String[] conjecture = {
-                conjectureFullWithDelimitier(list, ""),
-                conjectureFullWithDelimitier(list, "."),
-                conjectureFullWithDelimitier(list, "-"),
-                conjectureFullWithDelimitier(list, "_"),
-                conjectureFullWithDelimitier(getReversed(list), ""),
-                conjectureFullWithDelimitier(getReversed(list), "."),
-                conjectureFullWithDelimitier(getReversed(list), "-"),
-                conjectureFullWithDelimitier(getReversed(list), "_")
-        };
-        return new ArrayList<String>(Arrays.asList(conjecture));
+        if (list.size() > 1) {
+            String[] conjecture = {
+                    conjectureFullWithDelimitier(list, ""),
+                    conjectureFullWithDelimitier(list, "."),
+                    conjectureFullWithDelimitier(list, "-"),
+                    conjectureFullWithDelimitier(list, "_"),
+                    conjectureFullWithDelimitier(getReversed(list), ""),
+                    conjectureFullWithDelimitier(getReversed(list), "."),
+                    conjectureFullWithDelimitier(getReversed(list), "-"),
+                    conjectureFullWithDelimitier(getReversed(list), "_")
+            };
+            return new ArrayList<String>(Arrays.asList(conjecture));
+        } else {
+            return list;
+        }
     }
 
     private static List<String> getReversed(List<String> list) {
