@@ -1,3 +1,4 @@
+https://travis-ci.org/olereidar/email-conjecture.svg?branch=master
 # "Email Conjecture"
 Email Conjecture er et prosjekt startet av frivillige studenter. Programmet er under utvikling.
 Målet med applikasjonen er å kunne automatisere gjetningsarbeid når man er usikker på en e-post adresse.
