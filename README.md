@@ -60,7 +60,8 @@ $ git clone https://github.com/olereidar/email-conjecture.git
 
 ## Last ned
 Du kan laste ned ferdig kompilert program ved å gå inn i mappen *release*, eller bruke direktelenken under:
-[Last ned](https://raw.githubusercontent.com/olereidar/email-conjecture/første-release/release/email-conjecture.jar)
+
+[Last ned](https://github.com/olereidar/email-conjecture/blob/release/f%C3%B8rste-release/release/email-conjecture.jar?raw=true)
 
 ### Kjør programmet
 1. Last ned programmet
