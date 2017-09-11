@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ConjetureMachine {
 
@@ -21,15 +20,21 @@ public class ConjetureMachine {
         List<String> firm = nameAndFirmArray.subList(firmIndex, nameAndFirmArray.size());
 
         // TODO: Begynn å gjett på e-poster
-        names = conjectureNamesToList(names);
+        //names = conjectureNamesToList(names);
         firm = conjectureFirmToList(firm, hasSpecifiedDomain);
 
         return joinConjecturedNamesFirmsToList(names, firm);
     }
 
-    private static List<String> joinConjecturedNamesFirmsToList(List<String> names, List<String> firm) {
+    private static List<String> joinConjecturedNamesFirmsToList(List<String> names, List<String> firms) {
         //TODO
-        List<String> conjecturedList = Stream.concat(names.stream(), firm.stream()).collect(Collectors.toList());
+        List<String> conjecturedList = new ArrayList<String>();
+        names.forEach(name -> {
+            firms.forEach(firm -> {
+                String email = String.format("%s@%s", name, firm);
+                conjecturedList.add(email);
+            });
+        });
         return conjecturedList;
     }
 
@@ -48,7 +53,6 @@ public class ConjetureMachine {
         list.addAll(conjectureShortFirstLast(names));
         list.addAll(conjectureShortFirstLongLast(names));
         list.addAll(names);
-        //System.out.println(list);
         return list;
     }
 
