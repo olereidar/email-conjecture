@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/olereidar/email-conjecture.svg?branch=master)](https://travis-ci.org/olereidar/email-conjecture)
 # "Email Conjecture"
 Email Conjecture er et prosjekt startet av frivillige studenter. Programmet er under utvikling.
 Målet med applikasjonen er å kunne automatisere gjetningsarbeid når man er usikker på en e-post adresse.
@@ -50,14 +51,25 @@ For å komme i gang med utvikling trenger du følgende:
 Når du har utviklingsverktøyene på plass og riktig satt opp, kan du begynne å sette opp.
 - Klon repoet med Git i en passende mappe. 
 ```git
- cd .\passendeMappe
- git clone https://github.com/olereidar/email-conjecture.git
+$ cd .\passendeMappe
+$ git clone https://github.com/olereidar/email-conjecture.git
 ``` 
 - Åpne utviklingsverktøyet og lag et nytt prosjekt. Et hot tips for å sette opp alt riktig i **IntelliJ**, er å lage prosjektet ved å åpne filen *pom.xml*. Dette laster ned alle avhengigheter som treng for å kjøre programmet. 
 - For å kjøre programmet lokalt, se i mappen *test/java*. Der skal det ligge et Entrypoint som heter *App.java*
 
 
 ## Last ned
-```java
-    // TODO: komme med første versjon.
+Du kan laste ned ferdig kompilert program ved å gå inn i mappen *release*, eller bruke direktelenken under:
+
+[Last ned](https://github.com/olereidar/email-conjecture/blob/release/f%C3%B8rste-release/release/email-conjecture.jar?raw=true)
+
+### Kjør programmet
+1. Last ned programmet
+2. Start kommandolinja
+3. Flytt deg inn i mappen du lastet ned programmet.
+4. Start programmet med Java's -jar flagg (Se eksempel under.)
+
+```git
+$ cd .\lokasjonenTilProgrammet
+$ java -jar email-conjecture.jar -h
 ```
