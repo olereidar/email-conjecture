@@ -4,17 +4,26 @@ import commands.ICommand;
 import util.ArgumentExtractor;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Controller {
 
     public Controller(String[] args) {
         if (isArgument(args)){
-            // TODO: Benytte argumentene som ble sendt med slik at bruker får det slik som h*n vil
-                // Eksempel: argument -h skal vise hjelpetekst i konsoll.
             doConjecture(args);
         } else {
-            // TODO: Bruker skal kunne konfigurere innstillingene selv.
-            System.out.println("Ingen argumenter ble sendt med.");
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Ingen argumenter ble sendt med. Programmet vil nå spørre etter det selv.");
+            System.out.println("----- OBLIGATORISK -----");
+            System.out.print("Navn: ");
+            String name = scanner.nextLine().trim();
+            System.out.print("Firma: ");
+            String firm = scanner.nextLine().trim();
+            System.out.println("----- IKKE OBLIGATORISK -----");
+            System.out.print("Domene: ");
+            String domain = scanner.nextLine().trim();
+            String[] arguments = ArgumentExtractor.createConjectureArgumentsArray(name, firm, domain);
+            doConjecture(arguments);
         }
     }
 

@@ -5,6 +5,7 @@ import exceptions.ArgumentNotImplementedExeption;
 import lib.EArguments;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -60,4 +61,25 @@ public class ArgumentExtractor {
     }
 
 
+    public static String[] createConjectureArgumentsArray(String name, String firm, String domain) {
+        final String DELIMITIER = " ";
+        final String[] NAMES = name.split(DELIMITIER);
+        final String[] FIRMS = firm.split(DELIMITIER);
+        return toConjectureArgumentArray(EArguments.CONJECTURE, NAMES, "@", FIRMS, domain);
+    }
+
+    private static String[] toConjectureArgumentArray(EArguments eArgument, String[] names, String delimitier, String[] firms, String domain) {
+        List<String> list = new ArrayList<>();
+        list.add(eArgument.getArgument());
+        list.addAll(Arrays.asList(names));
+        list.add(delimitier);
+        list.addAll(Arrays.asList(firms));
+        if (domain.length() > 0) {
+            if (!domain.contains(".")) {
+                domain = String.format("%s%s", ".", domain); // legger på "." dersom det ikke skrives inn av brukeren.
+            }
+            list.add(domain);
+        }
+        return list.stream().filter(s -> s.length() > 0).toArray(String[]::new); // Fjerner alle tomme felter i arrayet og returnerer et nytt String[]
+    }
 }
