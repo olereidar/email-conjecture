@@ -47,10 +47,10 @@ public class ConjetureMachine {
         if (hasSpecifiedDomain) {
             String domain = getLast(list);
             list.remove(firm.size() - 1);
-            list = conjectureFull(list);
+            list = createListOfConjecturedDomains(list);
             list = list.stream().map(s -> String.format("%s%s", s, domain)).collect(Collectors.toList());
         } else {
-            list = conjectureDomains(conjectureFull(list));
+            list = conjectureDomains(createFullListOfConjecturedNames(list));
         }
         return list;
     }
@@ -74,7 +74,7 @@ public class ConjetureMachine {
 
     private static List<String> conjectureNamesToList(List<String> names) {
         List<String> list = new ArrayList<String>();
-        list.addAll(conjectureFull(names));                     // fullt navn uten modifikasjoner
+        list.addAll(createFullListOfConjecturedNames(names));                     // fullt navn uten modifikasjoner
         list.addAll(conjectureFirstLast(names));                // fornavn etternavn
         list.addAll(conjectureLastFirstSecond(names));          // etternavn fornavn
         list.addAll(conjectureShort(names));                    // f m e
@@ -89,7 +89,7 @@ public class ConjetureMachine {
         List<String> conjecturedList = new ArrayList<String>();
         conjecturedList.add(getShort(getFirst(list), 1));
         conjecturedList.add(getLast(list));
-        return conjectureFull(conjecturedList);
+        return createFullListOfConjecturedNames(conjecturedList);
     }
 
     private static List<String> conjectureShortFirstLast(List<String> list) {
@@ -105,11 +105,11 @@ public class ConjetureMachine {
         conjecturedList.addAll(getShortList(list));
         conjecturedList.remove(conjecturedList.size() - 1);
         conjecturedList.add(getLast(list));
-        return conjectureFull(conjecturedList);
+        return createFullListOfConjecturedNames(conjecturedList);
     }
 
     private static List<String> conjectureShort(List<String> list) {
-        return conjectureFull(getShortList(list));
+        return createFullListOfConjecturedNames(getShortList(list));
     }
 
     private static String getShort(String name, int howManyCharsLong) {
@@ -120,7 +120,7 @@ public class ConjetureMachine {
         List<String> listFirstLast = new ArrayList<String>();
         listFirstLast.add(getFirst(names));
         listFirstLast.add(getLast(names));
-        return conjectureFull(listFirstLast);
+        return createFullListOfConjecturedNames(listFirstLast);
     }
 
     private static List<String> conjectureLastFirstSecond(List<String> names) {
@@ -128,7 +128,7 @@ public class ConjetureMachine {
         list.add(names.get(names.size() - 1));
         list.addAll(names);
         list.remove(list.size() - 1);
-        return conjectureFull(list);
+        return createFullListOfConjecturedNames(list);
     }
 
     private static String getFirst(List<String> arr) {
@@ -139,7 +139,23 @@ public class ConjetureMachine {
         return arr.get(arr.size() - 1);
     }
 
-    private static List<String> conjectureFull(List<String> list) {
+    private static List<String> createListOfConjecturedDomains(List<String> list) {
+        if (list.size() > 1) {
+            String[] conjecture = {
+                    conjectureFullWithDelimitier(list, ""),
+                    conjectureFullWithDelimitier(list, "."),
+                    conjectureFullWithDelimitier(list, "-"),
+                    conjectureFullWithDelimitier(getReversed(list), ""),
+                    conjectureFullWithDelimitier(getReversed(list), "."),
+                    conjectureFullWithDelimitier(getReversed(list), "-")
+            };
+            return new ArrayList<String>(Arrays.asList(conjecture));
+        } else {
+            return list;
+        }
+    }
+
+    private static List<String> createFullListOfConjecturedNames(List<String> list) {
         if (list.size() > 1) {
             String[] conjecture = {
                     conjectureFullWithDelimitier(list, ""),
