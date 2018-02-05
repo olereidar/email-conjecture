@@ -54,8 +54,8 @@ Når du har utviklingsverktøyene på plass og riktig satt opp, kan du begynne �
 $ cd .\passendeMappe
 $ git clone https://github.com/olereidar/email-conjecture.git
 ``` 
-- Åpne utviklingsverktøyet og lag et nytt prosjekt. Et hot tips for å sette opp alt riktig i **IntelliJ**, er å lage prosjektet ved å åpne filen *pom.xml*. Dette laster ned alle avhengigheter som treng for å kjøre programmet. 
-- For å kjøre programmet lokalt, se i mappen *test/java*. Der skal det ligge et Entrypoint som heter *App.java*
+- Åpne utviklingsverktøyet og lag et nytt prosjekt. Et hot tips for å sette opp alt riktig i **IntelliJ**, er å lage prosjektet ved å åpne filen *pom.xml*. Dette laster ned alle avhengigheter som trengs for å kjøre programmet. 
+- For å kjøre programmet lokalt, se i mappen *main/java*. Der skal det ligge et Entrypoint som heter *App.java*
 
 
 ## Last ned
