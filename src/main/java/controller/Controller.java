@@ -1,5 +1,6 @@
 package controller;
 
+import checkMXReccord.ValidateExsistingMailServer;
 import commands.ICommand;
 import util.ArgumentExtractor;
 
@@ -9,6 +10,7 @@ import java.util.Scanner;
 public class Controller {
 
     public Controller(String[] args) {
+        ValidateExsistingMailServer ValidateExsistingMailServer= new ValidateExsistingMailServer();
         if (isArgument(args)){
             doConjecture(args);
         } else {
@@ -24,6 +26,21 @@ public class Controller {
             String domain = scanner.nextLine().trim();
             String[] arguments = ArgumentExtractor.createConjectureArgumentsArray(name, firm, domain);
             doConjecture(arguments);
+        }
+        // Send inn som argument for eksempel www.domene.no
+        if(args.length == 0) {
+            System.err.println( "Ingen argumenter sendt inn 'website.com'" );
+            System.exit(99);
+        }
+        // Kjør sjekk mot domene om der eksisterer mail-server
+        for(int i = 0; i < args.length; i++) {
+            try {
+                System.out.println(args[i] + " har " +
+                        ValidateExsistingMailServer.doLookup(args[i]) + " mail servere" );
+            }
+            catch(Exception e ) {
+                System.out.println(args[i] + " : "+ e.getMessage());
+            }
         }
     }
 
