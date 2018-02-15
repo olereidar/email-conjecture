@@ -28,6 +28,7 @@ public class ConjectureCommand implements ICommand {
         try {
             System.out.println(nameAndFirmArray);
             List<String> listOfConjecturedEmails = ConjetureMachine.doEasyConjecture(nameAndFirmArray);
+            System.out.println("----- Lister opp alle mulige e-postadresser -----");
             listOfConjecturedEmails.forEach((email) -> System.out.println(email));
         } catch (CommandErrorExeption commandErrorExeption) {
             System.err.println(commandErrorExeption);
