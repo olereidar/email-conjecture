@@ -37,7 +37,22 @@ public class ConjetureMachine {
     private static List<String> conjectureFirmToList(List<String> firm, boolean hasSpecifiedDomain) {
         List<String> list = new ArrayList<String>();
         list.addAll(conjectureFirmFull(firm, hasSpecifiedDomain)); // fullt firma uten modifikasjoner
+        list = removeFalseFirmDomains(list); // fjerner alle domener som ikke dukker opp i et dns-søk
         return list;
+    }
+
+    private static List<String> removeFalseFirmDomains(List<String> listOfAllFirmDomains) {
+        List<String> listWithoutFalseFirmDomains = new ArrayList<String>();
+        System.out.println("----- Slår opp alle mulige e-postdomener -----");
+        listOfAllFirmDomains.forEach(domain -> {
+            if (MailHostLookup.lookupMailHostDomain(domain)) {
+                System.out.println(domain + " er gyldig.");
+                listWithoutFalseFirmDomains.add(domain);
+            } else {
+                System.out.println(domain + " er IKKE et gyldig domene.");
+            }
+        });
+        return listWithoutFalseFirmDomains;
     }
 
 
@@ -74,13 +89,15 @@ public class ConjetureMachine {
 
     private static List<String> conjectureNamesToList(List<String> names) {
         List<String> list = new ArrayList<String>();
-        list.addAll(createFullListOfConjecturedNames(names));                     // fullt navn uten modifikasjoner
-        list.addAll(conjectureFirstLast(names));                // fornavn etternavn
-        list.addAll(conjectureLastFirstSecond(names));          // etternavn fornavn
-        list.addAll(conjectureShort(names));                    // f m e
-        list.addAll(conjectureShortFirstSecondLongLast(names)); // f m etternavn
-        list.addAll(conjectureShortFirstLast(names));           // f e
-        list.addAll(conjectureShortFirstLongLast(names));       // f etternavn
+        if (names.size() > 1) {
+            list.addAll(createFullListOfConjecturedNames(names));   // fullt navn uten modifikasjoner
+            list.addAll(conjectureFirstLast(names));                // fornavn etternavn
+            list.addAll(conjectureLastFirstSecond(names));          // etternavn fornavn
+            list.addAll(conjectureShort(names));                    // f m e
+            list.addAll(conjectureShortFirstSecondLongLast(names)); // f m etternavn
+            list.addAll(conjectureShortFirstLast(names));           // f e
+            list.addAll(conjectureShortFirstLongLast(names));       // f etternavn
+        }
         list.addAll(names);                                     // argumentmessig - eks fornavn@firma, mellomnavn@firma, etternavn@firma
         return list;
     }
